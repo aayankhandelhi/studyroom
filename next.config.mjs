@@ -10,7 +10,7 @@ const nextConfig = {
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://maps.googleapis.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' data: blob: https://*.supabase.co https://picsum.photos https://maps.gstatic.com https://*.googleapis.com",
+      "img-src 'self' data: blob: https://*.supabase.co https://picsum.photos https://fastly.picsum.photos https://maps.gstatic.com https://*.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://*.supabase.co https://api.razorpay.com https://lumberjack.razorpay.com https://maps.googleapis.com",
       "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com",
@@ -42,6 +42,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '*.supabase.co' },
       { protocol: 'https', hostname: 'picsum.photos' },
+      { protocol: 'https', hostname: 'fastly.picsum.photos' },
     ],
   },
 };
