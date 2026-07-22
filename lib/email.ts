@@ -6,6 +6,10 @@ import { resend as resendEnv } from '@/lib/env';
 const RESEND_API_KEY = resendEnv.apiKey;
 const EMAIL_FROM = resendEnv.from;
 
+export const emailConfigured = Boolean(RESEND_API_KEY);
+console.log("RESEND_API_KEY exists:", !!RESEND_API_KEY);
+console.log("Email configured:", emailConfigured);
+
 /** Email only actually sends when a Resend key is present. Otherwise we log the
  * message as 'queued' so the product works in dev and nothing is lost. */
 export const emailConfigured = Boolean(RESEND_API_KEY);
