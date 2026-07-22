@@ -72,31 +72,11 @@ export async function requestPasswordReset(raw: unknown): Promise<Result<{ ok: t
   if (!rateLimit(clientKey(h, 'reset'), 5, 60_000).success)
     return err('RATE_LIMITED', 'Too many attempts. Please wait a minute.');
 
-  // return action(emailOnlySchema, raw, async (input) => {
-  //   const db = await createClient();
-  //   await db.auth.resetPasswordForEmail(input.email, { redirectTo: `${await siteUrl()}/auth/update-password` });
-  //   return { ok: true as const };
-  // });
-
   return action(emailOnlySchema, raw, async (input) => {
-  const db = await createClient();
-
-  const { data, error } = await db.auth.resetPasswordForEmail(input.email, {
-    redirectTo: `${await siteUrl()}/auth/update-password`,
+    const db = await createClient();
+    await db.auth.resetPasswordForEmail(input.email, { redirectTo: `${await siteUrl()}/auth/update-password` });
+    return { ok: true as const };
   });
-
-  console.log("=================================");
-  console.log("Reset Password Data:", data);
-  console.log("Reset Password Error:", error);
-  console.log("Site URL:", await siteUrl());
-  console.log("=================================");
-
-  if (error) {
-    throw new ActionError("INTERNAL", error.message);
-  }
-
-  return { ok: true as const };
-});
 }
 
 /** Set a new password (user arrives here via the reset link, already in a session). */
