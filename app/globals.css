@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* shadcn/ui design tokens, tuned to the StudyNook brand (green/gold on cream). */
+@layer base {
+  :root {
+    --background: 40 33% 98%;        /* #FCFAF6 cream */
+    --foreground: 152 25% 12%;       /* ink */
+    --card: 0 0% 100%;
+    --card-foreground: 152 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 152 25% 12%;
+    --primary: 152 41% 30%;          /* brand green2 #2D6A4F */
+    --primary-foreground: 40 33% 98%;
+    --secondary: 40 30% 94%;         /* page2 */
+    --secondary-foreground: 152 25% 20%;
+    --muted: 40 30% 94%;
+    --muted-foreground: 150 8% 43%;  /* ink3 */
+    --accent: 40 70% 93%;            /* gold-pale */
+    --accent-foreground: 33 90% 25%;
+    --destructive: 11 58% 46%;       /* full/red */
+    --destructive-foreground: 40 33% 98%;
+    --border: 38 24% 84%;
+    --input: 38 20% 50%;
+    --ring: 152 41% 30%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    --background: 152 28% 8%;
+    --foreground: 40 33% 96%;
+    --card: 152 22% 11%;
+    --card-foreground: 40 33% 96%;
+    --popover: 152 22% 11%;
+    --popover-foreground: 40 33% 96%;
+    --primary: 152 35% 55%;
+    --primary-foreground: 152 28% 8%;
+    --secondary: 152 15% 18%;
+    --secondary-foreground: 40 33% 96%;
+    --muted: 152 15% 18%;
+    --muted-foreground: 150 10% 65%;
+    --accent: 152 15% 20%;
+    --accent-foreground: 40 33% 96%;
+    --destructive: 11 54% 45%;
+    --destructive-foreground: 40 33% 96%;
+    --border: 152 15% 22%;
+    --input: 152 12% 38%;
+    --ring: 152 35% 55%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; }
+}

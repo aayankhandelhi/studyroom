@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudyNook — UI Mockups</title>
+<style>
+  :root{
+    --green:#1B4332; --green2:#2D6A4F; --gold:#B8780A; --plum:#7A2D6E;
+    --cream:#FCFAF6; --ink:#25201A; --muted:#7C7267; --line:#E7DFD3;
+    --card:#FFFFFF; --ok:#2D6A4F; --warn:#B8780A; --danger:#B4453A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#EFE9DE;color:var(--ink);
+    font-family:'Plus Jakarta Sans',-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 20px 80px}
+  h1.page-title{font-size:28px;margin:0 0 4px}
+  .sub{color:var(--muted);margin:0 0 28px}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px}
+  .toc a{font-size:13px;font-weight:600;text-decoration:none;color:var(--green);
+    background:#fff;border:1px solid var(--line);padding:7px 12px;border-radius:8px}
+  .screen{background:var(--cream);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;margin:0 0 34px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+  .screen>.label{background:var(--green);color:#fff;font-size:12px;font-weight:700;
+    letter-spacing:.06em;text-transform:uppercase;padding:8px 16px;display:flex;justify-content:space-between}
+  .screen>.label .route{color:#D9C9A3;font-weight:600;text-transform:none;letter-spacing:0}
+  .frame{padding:20px}
+  /* app chrome */
+  .nav{display:flex;align-items:center;justify-content:space-between;
+    border-bottom:1px solid var(--line);padding:10px 16px;background:#fff;border-radius:10px 10px 0 0}
+  .brand{font-weight:800;font-size:17px}.brand span{color:var(--gold)}
+  .navlinks{display:flex;gap:6px;align-items:center;font-size:13px}
+  .navlinks a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:7px}
+  .navlinks .cta{background:var(--green);color:#fff;font-weight:700;padding:7px 14px}
+  /* generic bits */
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;
+    padding:2px 8px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--muted)}
+  .badge.ok{color:var(--ok);border-color:#BFE3CE;background:#EAF6EF}
+  .badge.warn{color:var(--warn);border-color:#EAD6A6;background:#FBF3E0}
+  .badge.safe{color:var(--plum);border-color:#E4C4DD;background:#F7EAF4}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .thumb{height:96px;display:flex;align-items:center;justify-content:center;font-size:34px}
+  .card .body{padding:12px}
+  .name{font-weight:700;font-size:14px}
+  .meta{font-size:12px;color:var(--muted);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+  .price{font-weight:800;color:var(--green);font-size:15px}
+  .btn{font-size:12px;font-weight:700;background:var(--green);color:#fff;border:none;
+    padding:7px 13px;border-radius:8px;cursor:default}
+  .btn.ghost{background:#fff;border:1px solid var(--line);color:var(--muted)}
+  .btn.gold{background:var(--gold)}
+  .field{border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 11px;
+    font-size:13px;color:var(--muted)}
+  .h2{font-size:16px;font-weight:800;margin:0 0 12px}
+  .split{display:grid;grid-template-columns:1fr 320px;gap:22px}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:#fff;border-radius:10px;overflow:hidden}
+  th{ text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);
+    padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px;border-bottom:1px solid var(--line)}
+  .pill{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+  .pill.pending{background:#FBF3E0;color:var(--warn)} .pill.appr{background:#EAF6EF;color:var(--ok)}
+  .pill.draft{background:#EFEAE0;color:var(--muted)}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;flex:1;min-width:150px}
+  .stat .n{font-size:28px;font-weight:800;color:var(--green)}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:2px}
+  .star{color:var(--gold)} .muted{color:var(--muted)}
+
+  .card{cursor:pointer;transition:box-shadow .15s,transform .15s}
+  #discovery .card:hover{box-shadow:0 4px 14px rgba(0,0,0,.10);transform:translateY(-1px)}
+  .hint{font-size:12px;color:var(--muted);background:#fff;border:1px dashed var(--line);
+    border-radius:8px;padding:8px 12px;margin:0 0 14px}
+  @media(max-width:720px){.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="page-title">StudyNook — UI Mockups</h1>
+  <p class="sub">Static visual reference for the key screens. Green/gold brand. (The live app renders these from real data.)</p>
+  <div class="toc">
+    <a href="#home">Home</a><a href="#discovery">Discovery</a><a href="#detail">Listing detail</a>
+    <a href="#book">Booking</a><a href="#login">Login</a><a href="#onboarding">Onboarding</a>
+    <a href="#owner">Owner console</a><a href="#admin">Admin approvals</a>
+    <a href="#claims">Admin claims</a><a href="#account">Account</a>
+  </div>
+
+  <!-- HOME -->
+  <section class="screen" id="home">
+    <div class="label"><span>Home / landing</span><span class="route">/</span></div>
+    <div class="frame">
+      <div class="nav"><div class="brand">Study<span>Nook</span></div>
+        <div class="navlinks"><a>Browse</a><a>Saved</a><a>Account</a><a class="cta">Sign in</a></div></div>
+      <div style="text-align:center;padding:40px 16px 26px">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase">Warangal · Telangana</div>
+        <div style="font-size:34px;font-weight:800;margin:8px 0 6px">Find your perfect <span style="color:var(--green)">study space</span></div>
+        <div class="muted" style="max-width:520px;margin:0 auto">Compare study halls, reading rooms and coworking spaces near you — live seat availability, verified reviews and transparent prices.</div>
+        <div style="margin-top:20px;display:flex;gap:10px;justify-content:center">
+          <span class="btn" style="padding:11px 20px">Browse centres</span>
+          <span class="btn ghost" style="padding:11px 20px">List your centre</span></div>
+      </div>
+      <div class="row" style="padding:0 6px">
+        <div class="stat"><div class="l" style="font-weight:700;color:var(--ink)">Live availability</div><div class="l">See seats free right now.</div></div>
+        <div class="stat"><div class="l" style="font-weight:700;color:var(--ink)">Verified reviews</div><div class="l">From students who checked in.</div></div>
+        <div class="stat"><div class="l" style="font-weight:700;color:var(--ink)">Transparent prices</div><div class="l">Daily & monthly, up front.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVERY -->
+  <section class="screen" id="discovery">
+    <div class="label"><span>Discovery / browse</span><span class="route">/centres</span></div>
+    <div class="frame">
+      <p class="hint">Tip: in the live app each card links to its detail page. Here, click any card to jump to the detail mockup below.</p>
+      <div class="h2">Study spaces in Warangal <span class="muted" style="font-weight:500;font-size:13px">· 6 centres</span></div>
+      <div class="row" style="margin-bottom:16px">
+        <span class="field" style="flex:1;min-width:180px">🔍 Search area or centre</span>
+        <span class="field">Type ▾</span><span class="field">AC</span><span class="field">24/7</span>
+        <span class="field" style="color:var(--plum);border-color:#E4C4DD;background:#F7EAF4">🛡 Women-safe</span>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="thumb" style="background:#EAF6EF">📚</div><div class="body">
+          <div class="name">Raman Study Hall</div><div class="meta"><span>📍 Hanamkonda</span><span class="ok" style="color:var(--ok);font-weight:700">● 14 free</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:9px">
+            <div><div class="meta"><span class="star">★</span> 5.0 · 263</div><div class="price">₹1,200<span class="muted" style="font-weight:500;font-size:11px">/mo</span></div></div><span class="btn">Book</span></div></div></div>
+        <div class="card"><div class="thumb" style="background:#F7EAF4">🌙</div><div class="body">
+          <div class="name">Drishti Women's Hall <span class="badge safe">🛡</span></div><div class="meta"><span>📍 Hanamkonda</span><span style="color:var(--warn);font-weight:700">● 3 left</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:9px">
+            <div><div class="meta"><span class="star">★</span> 5.0 · 141</div><div class="price">₹1,400<span class="muted" style="font-weight:500;font-size:11px">/mo</span></div></div><span class="btn">Book</span></div></div></div>
+        <div class="card"><div class="thumb" style="background:#FBF3E0">⚡</div><div class="body">
+          <div class="name">NXT GEN Coworking</div><div class="meta"><span>📍 Kazipet</span><span style="color:var(--ok);font-weight:700">● 22 free</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:9px">
+            <div><div class="meta"><span class="star">★</span> 4.8 · 112</div><div class="price">₹2,200<span class="muted" style="font-weight:500;font-size:11px">/mo</span></div></div><span class="btn">Book</span></div></div></div>
+        <div class="card"><div class="thumb" style="background:#EAF6EF">💡</div><div class="body">
+          <div class="name">ASPIRE Reading Room</div><div class="meta"><span>📍 DIG Bungalow</span><span style="color:var(--ok);font-weight:700">● 9 free</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:9px">
+            <div><div class="meta"><span class="star">★</span> 4.9 · 76</div><div class="price">₹999<span class="muted" style="font-weight:500;font-size:11px">/mo</span></div></div><span class="btn">Book</span></div></div></div>
+        <div class="card"><div class="thumb" style="background:#FDECEA">🔦</div><div class="body">
+          <div class="name">Focus Library Kazipet</div><div class="meta"><span>📍 Kazipet</span><span style="color:var(--danger);font-weight:700">● Full now</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:9px">
+            <div><div class="meta"><span class="star">★</span> 4.7 · 154</div><div class="price">₹1,050<span class="muted" style="font-weight:500;font-size:11px">/mo</span></div></div><span class="btn ghost">Notify</span></div></div></div>
+        <div class="card"><div class="thumb" style="background:#EEF4F0">🏢</div><div class="body">
+          <div class="name">Secure Studio 24/7 <span class="badge safe">🛡</span></div><div class="meta"><span>📍 Warangal City</span><span style="color:var(--ok);font-weight:700">● 18 free</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:10px;padding-top:9px">
+            <div><div class="meta"><span class="star">★</span> 4.8 · 61</div><div class="price">₹1,500<span class="muted" style="font-weight:500;font-size:11px">/mo</span></div></div><span class="btn">Book</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL -->
+  <section class="screen" id="detail">
+    <div class="label"><span>Listing detail</span><span class="route">/centres/raman-study-hall</span></div>
+    <div class="frame">
+      <div class="muted" style="font-size:13px;margin-bottom:10px">Home › Centres › Raman Study Hall</div>
+      <div class="split">
+        <div>
+          <div style="display:flex;gap:12px;align-items:center"><div style="font-size:40px">📚</div>
+            <div><div style="font-size:22px;font-weight:800">Raman Study Hall</div>
+              <div class="meta"><span>📍 Subedari, Hanamkonda</span><span class="star">★ 5.0 (263)</span></div></div></div>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <span class="badge ok">✓ Verified</span><span class="badge ok">14 seats free</span></div>
+          <div style="margin-top:12px;display:flex;gap:10px"><span class="btn ghost">♡ Save</span><span class="btn">Check in</span></div>
+          <div style="height:120px;background:#EAF6EF;border-radius:12px;margin:16px 0;display:flex;align-items:center;justify-content:center;font-size:40px">📚</div>
+          <div class="h2">Seats & pricing</div>
+          <div class="row">
+            <div class="card" style="flex:1;min-width:150px"><div class="body"><div class="name">Open desk</div><div class="muted" style="font-size:12px">open</div><div class="price" style="margin-top:6px">₹1,200/mo</div></div></div>
+            <div class="card" style="flex:1;min-width:150px"><div class="body"><div class="name">AC desk</div><div class="muted" style="font-size:12px">ac</div><div class="price" style="margin-top:6px">₹1,600/mo</div></div></div>
+          </div>
+          <div class="h2" style="margin-top:20px">Contact this centre</div>
+          <div class="card"><div class="body">
+            <span class="field" style="display:block;margin-bottom:8px">Your name</span>
+            <span class="field" style="display:block;margin-bottom:8px">Email</span>
+            <span class="field" style="display:block;height:60px">Message…</span>
+            <div style="margin-top:10px"><span class="btn" style="width:100%;text-align:center;display:block;padding:10px">Send enquiry</span></div>
+          </div></div>
+          <div class="h2" style="margin-top:20px">Reviews</div>
+          <div class="card"><div class="body"><div><span class="star">★★★★★</span> <span class="badge ok">✓ Verified visit</span></div>
+            <div style="font-size:13px;margin-top:6px">Quiet, clean, great AC. Best hall in Hanamkonda.</div><div class="muted" style="font-size:12px">— Priya</div></div></div>
+        </div>
+        <aside>
+          <div class="card"><div class="body">
+            <div class="muted" style="font-size:12px">From</div><div class="price" style="font-size:24px">₹1,200<span class="muted" style="font-size:12px;font-weight:500">/mo</span></div>
+            <div style="margin-top:12px"><span class="btn" style="width:100%;text-align:center;display:block;padding:11px">Book a seat</span></div>
+          </div></div>
+          <div class="card" style="margin-top:14px"><div class="body">
+            <div class="name" style="margin-bottom:8px">Details</div>
+            <div class="meta" style="flex-direction:column;gap:6px;align-items:flex-start">
+              <span>🪑 Capacity 60</span><span>🕐 6am–11pm</span><span>❄️ AC available</span><span>📶 Wi-Fi</span></div>
+          </div></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="screen" id="book">
+    <div class="label"><span>Booking</span><span class="route">/centres/raman-study-hall/book</span></div>
+    <div class="frame">
+      <div class="muted" style="font-size:13px;margin-bottom:8px">Centres › Raman Study Hall › Book</div>
+      <div style="font-size:20px;font-weight:800">Book a seat at Raman Study Hall</div>
+      <div class="muted" style="margin-bottom:16px">Choose an option and how long you need it.</div>
+      <div class="h2">Choose an option</div>
+      <div class="row" style="margin-bottom:16px">
+        <div class="card" style="flex:1;min-width:170px;outline:2px solid var(--green)"><div class="body"><div class="name">Open desk</div><div class="muted" style="font-size:12px">open</div></div></div>
+        <div class="card" style="flex:1;min-width:170px"><div class="body"><div class="name">AC desk</div><div class="muted" style="font-size:12px">ac</div></div></div>
+      </div>
+      <div class="h2">Duration</div>
+      <div class="row" style="margin-bottom:16px">
+        <span class="field">Daily · ₹80</span>
+        <span class="field" style="border-color:var(--green);background:#EAF6EF;color:var(--ink);font-weight:700">Monthly · ₹1,200</span>
+      </div>
+      <div class="card"><div class="body" style="display:flex;justify-content:space-between;align-items:center">
+        <div><div class="muted" style="font-size:12px">Total</div><div class="price" style="font-size:20px">₹1,200</div></div>
+        <span class="btn gold" style="padding:11px 18px">Confirm booking</span></div></div>
+      <div class="muted" style="font-size:12px;margin-top:8px">Payment collected at the centre or online once confirmed.</div>
+    </div>
+  </section>
+
+  <!-- LOGIN + ONBOARDING -->
+  <section class="screen" id="login">
+    <div class="label"><span>Login / sign up</span><span class="route">/login</span></div>
+    <div class="frame" style="display:flex;justify-content:center">
+      <div style="width:340px;text-align:center;padding:20px 0">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.08em">StudyNook</div>
+        <div style="font-size:22px;font-weight:800;margin:6px 0 18px">Welcome</div>
+        <div style="display:flex;border:1px solid var(--line);border-radius:9px;padding:4px;margin-bottom:16px">
+          <div style="flex:1;background:var(--green);color:#fff;border-radius:7px;padding:8px;font-size:13px;font-weight:700">Sign in</div>
+          <div style="flex:1;color:var(--muted);padding:8px;font-size:13px;font-weight:700">Sign up</div></div>
+        <span class="btn ghost" style="width:100%;display:block;padding:10px">Continue with Google</span>
+        <div class="muted" style="font-size:12px;margin:12px 0">— or —</div>
+        <span class="field" style="display:block;margin-bottom:8px;text-align:left">Email</span>
+        <span class="field" style="display:block;margin-bottom:12px;text-align:left">Password</span>
+        <span class="btn" style="width:100%;display:block;padding:11px">Sign in</span>
+        <div class="muted" style="font-size:12px;margin-top:10px">Email me a magic link instead</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="onboarding">
+    <div class="label"><span>Onboarding — role select</span><span class="route">/onboarding</span></div>
+    <div class="frame">
+      <div style="font-size:20px;font-weight:800">How will you use StudyNook?</div>
+      <div class="muted" style="margin-bottom:16px">Pick what fits you.</div>
+      <div class="row">
+        <div class="card" style="flex:1;min-width:220px;outline:2px solid var(--green)"><div class="body"><div style="font-size:26px">🎓</div><div class="name" style="margin-top:6px">I'm a student</div><div class="muted" style="font-size:13px">Find, book and review study spaces.</div></div></div>
+        <div class="card" style="flex:1;min-width:220px"><div class="body"><div style="font-size:26px">🏫</div><div class="name" style="margin-top:6px">I run a study space</div><div class="muted" style="font-size:13px">List and manage my centre.</div></div></div>
+      </div>
+      <div style="margin-top:16px"><span class="btn" style="padding:11px 22px">Continue</span></div>
+    </div>
+  </section>
+
+  <!-- OWNER -->
+  <section class="screen" id="owner">
+    <div class="label"><span>Owner console — my listings</span><span class="route">/owner/centres</span></div>
+    <div class="frame">
+      <div style="display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:16px">
+        <div style="padding:8px 12px;font-size:13px;font-weight:700;border-bottom:2px solid var(--green)">My centres</div>
+        <div style="padding:8px 12px;font-size:13px;font-weight:700;color:var(--muted)">Enquiries</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="h2" style="margin:0">My listings</div><span class="btn">+ New listing</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="card"><div class="body" style="display:flex;align-items:center;gap:12px">
+          <div style="font-size:24px">📚</div><div style="flex:1"><div class="name">Raman Study Hall</div><div class="muted" style="font-size:12px">Hanamkonda</div></div>
+          <span class="pill appr">approved</span><a class="muted" style="font-size:13px;font-weight:700">Edit</a></div></div>
+        <div class="card"><div class="body" style="display:flex;align-items:center;gap:12px">
+          <div style="font-size:24px">🏢</div><div style="flex:1"><div class="name">New Coworking Hub</div><div class="muted" style="font-size:12px">Kazipet</div></div>
+          <span class="pill pending">pending review</span><a class="muted" style="font-size:13px;font-weight:700">Edit</a></div></div>
+        <div class="card"><div class="body" style="display:flex;align-items:center;gap:12px">
+          <div style="font-size:24px">📖</div><div style="flex:1"><div class="name">Draft Reading Room</div><div class="muted" style="font-size:12px">Warangal City</div></div>
+          <span class="pill draft">draft</span><span class="btn" style="padding:6px 11px">Submit for review</span><a class="muted" style="font-size:13px;font-weight:700">Edit</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN APPROVALS -->
+  <section class="screen" id="admin">
+    <div class="label"><span>Admin — approval queue</span><span class="route">/admin/centres</span></div>
+    <div class="frame">
+      <div style="font-size:12px;font-weight:700;color:var(--gold);text-transform:uppercase">StudyNook Admin</div>
+      <div style="display:flex;gap:4px;margin:8px 0 16px;font-size:13px">
+        <span class="muted" style="font-weight:700;padding:6px 10px">Overview</span>
+        <span style="font-weight:700;padding:6px 10px;background:#EFEAE0;border-radius:7px">Approvals</span>
+        <span class="muted" style="font-weight:700;padding:6px 10px">Moderation</span>
+        <span class="muted" style="font-weight:700;padding:6px 10px">Claims</span>
+        <span class="muted" style="font-weight:700;padding:6px 10px">Audit log</span></div>
+      <div class="row" style="margin-bottom:18px">
+        <div class="stat"><div class="n">3</div><div class="l">Listings awaiting approval</div></div>
+        <div class="stat"><div class="n">1</div><div class="l">Open review reports</div></div>
+        <div class="stat"><div class="n">2</div><div class="l">Pending claims</div></div>
+        <div class="stat"><div class="n">5</div><div class="l">New enquiries</div></div></div>
+      <table>
+        <tr><th>Listing</th><th>Owner</th><th>Submitted</th><th style="text-align:right">Decision</th></tr>
+        <tr><td><b>New Coworking Hub</b><div class="muted" style="font-size:12px">Kazipet · coworking</div></td><td>R. Kumar</td><td class="muted">05 Jul 2026</td>
+          <td style="text-align:right"><span class="btn" style="padding:6px 11px">Approve</span> <span class="btn ghost" style="padding:6px 11px">Reject</span></td></tr>
+        <tr><td><b>City Reading Room</b><div class="muted" style="font-size:12px">Warangal City · reading room</div></td><td>S. Rao</td><td class="muted">04 Jul 2026</td>
+          <td style="text-align:right"><span class="btn" style="padding:6px 11px">Approve</span> <span class="btn ghost" style="padding:6px 11px">Reject</span></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ADMIN CLAIMS -->
+  <section class="screen" id="claims">
+    <div class="label"><span>Admin — ownership claims</span><span class="route">/admin/claims</span></div>
+    <div class="frame">
+      <div class="h2">Ownership claims</div>
+      <div class="card" style="margin-bottom:10px"><div class="body" style="display:flex;justify-content:space-between;gap:12px">
+        <div><div style="display:flex;gap:8px;align-items:center"><b>Raman Study Hall</b> <span class="badge">Unowned</span></div>
+          <div class="muted" style="font-size:12px;margin-top:2px">Claimant: A. Sharma · 05 Jul 2026</div>
+          <div style="font-size:13px;margin-top:6px">I'm the owner — GST + on-site number listed match my registration.</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <span class="btn" style="padding:6px 11px">Approve</span><span class="btn ghost" style="padding:6px 11px">Reject</span></div></div></div>
+      <div class="card"><div class="body" style="display:flex;justify-content:space-between;gap:12px">
+        <div><div style="display:flex;gap:8px;align-items:center"><b>Focus Library Kazipet</b> <span class="badge warn">Already owned</span></div>
+          <div class="muted" style="font-size:12px;margin-top:2px">Claimant: M. Reddy · 03 Jul 2026</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <span class="btn ghost" style="padding:6px 11px">Review</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- ACCOUNT -->
+  <section class="screen" id="account">
+    <div class="label"><span>Account — my bookings</span><span class="route">/account</span></div>
+    <div class="frame">
+      <div style="font-size:20px;font-weight:800">My account</div>
+      <div class="muted" style="margin-bottom:16px">Priya S · student</div>
+      <div class="h2">My bookings</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="card"><div class="body" style="display:flex;justify-content:space-between;align-items:center">
+          <div><div class="name">Raman Study Hall</div><div class="muted" style="font-size:12px">month · ₹1,200 · 05 Jul 2026</div></div>
+          <div style="display:flex;gap:6px"><span class="pill appr">confirmed</span><span class="pill appr">paid</span></div></div></div>
+        <div class="card"><div class="body" style="display:flex;justify-content:space-between;align-items:center">
+          <div><div class="name">NXT GEN Coworking</div><div class="muted" style="font-size:12px">day · ₹150 · 06 Jul 2026</div></div>
+          <div style="display:flex;gap:6px"><span class="pill draft">pending</span><span class="pill pending">unpaid</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <p class="muted" style="text-align:center;font-size:12px;margin-top:30px">
+    StudyNook UI mockups · static visual reference · the live app renders these from the database.</p>
+</div>
+
+<script>
+  document.querySelectorAll('#discovery .card').forEach(function(c){
+    c.addEventListener('click', function(){
+      document.getElementById('detail').scrollIntoView({behavior:'smooth'});
+    });
+  });
+</script>
+</body>
+</html>

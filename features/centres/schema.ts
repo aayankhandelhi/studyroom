@@ -1,0 +1,86 @@
+import { z } from 'zod';
+
+/**
+ * A URL restricted to http(s). Plain z.string().url() accepts javascript:, data:,
+ * and other schemes that become XSS vectors when rendered as links, so every
+ * user-supplied URL (website, social) goes through this instead.
+ */
+const httpUrl = (msg = 'Enter a valid URL') =>
+  z.string().trim().max(200).url(msg).refine(
+    (u) => /^https?:\/\//i.test(u),
+    { message: 'URL must start with http:// or https://' },
+  );
+
+/** Query params for the discovery feed — validated at every entry point. */
+export const centreSearchSchema = z.object({
+  q: z.string().trim().max(80).optional(),
+  area: z.string().trim().max(80).optional(),
+  spaceType: z.enum(['study_hall', 'reading_room', 'coworking', 'both']).optional(),
+  womenSafe: z.coerce.boolean().optional(),
+  maxMonthly: z.coerce.number().int().positive().max(100_000).optional(),
+  limit: z.coerce.number().int().min(1).max(48).default(24),
+  // keyset cursor (opaque to the client; base64 in the URL)
+  cursorRating: z.coerce.number().min(0).max(5).optional(),
+  cursorId: z.string().uuid().optional(),
+});
+export type CentreSearch = z.infer<typeof centreSearchSchema>;
+
+/**
+ * Nearby ("search near me") params. When lat/lng are present the feed switches
+ * to distance-ordered results within radiusKm via the search_centres_nearby RPC.
+ */
+export const nearbySearchSchema = z.object({
+  lat: z.coerce.number().min(-90).max(90),
+  lng: z.coerce.number().min(-180).max(180),
+  radiusKm: z.coerce.number().positive().max(100).default(5),
+  spaceType: z.enum(['study_hall', 'reading_room', 'coworking', 'both']).optional(),
+  womenSafe: z.coerce.boolean().optional(),
+  limit: z.coerce.number().int().min(1).max(48).default(24),
+});
+export type NearbySearch = z.infer<typeof nearbySearchSchema>;
+
+/** Owner create/update payload. */
+export const centreUpsertSchema = z.object({
+  name: z.string().trim().min(2, 'Name is too short').max(120),
+  area: z.string().trim().min(2).max(80),
+  address: z.string().trim().max(240).optional(),
+  spaceType: z.enum(['study_hall', 'reading_room', 'coworking', 'both']),
+  lat: z.number().min(-90).max(90),
+  lng: z.number().min(-180).max(180),
+  emoji: z.string().max(4).default('📖'),
+  // contact
+  phone: z.string().trim().max(20).optional(),
+  website: httpUrl('Enter a valid website URL').optional().or(z.literal('')),
+  // Google Places import: the Place ID captured from the picker
+  googlePlaceId: z.string().trim().max(300).optional(),
+});
+export type CentreUpsert = z.infer<typeof centreUpsertSchema>;
+
+/**
+ * Social links — every value must be a valid http(s) URL (M3: social URL validation).
+ * Restricted to http/https to block javascript:/data: schemes that .url() alone allows
+ * (an XSS vector if rendered as a link). WhatsApp accepts a phone-style value.
+ */
+export const socialLinksSchema = z.object({
+  instagram: httpUrl('Instagram must be a valid URL').optional().or(z.literal('')),
+  facebook:  httpUrl('Facebook must be a valid URL').optional().or(z.literal('')),
+  youtube:   httpUrl('YouTube must be a valid URL').optional().or(z.literal('')),
+  whatsapp:  z.string().trim().max(20).optional().or(z.literal('')),
+}).partial();
+export type SocialLinks = z.infer<typeof socialLinksSchema>;
+
+/** Amenity selection — array of amenity IDs the owner ticks on the form. */
+export const centreAmenitiesSchema = z.object({
+  centreId: z.string().uuid(),
+  amenityIds: z.array(z.string().uuid()).max(40),
+});
+export type CentreAmenities = z.infer<typeof centreAmenitiesSchema>;
+
+/** Verification document registration (after upload to Storage). */
+export const centreDocumentSchema = z.object({
+  centreId: z.string().uuid(),
+  storagePath: z.string().trim().min(1).max(400),
+  docType: z.enum(['license', 'gst', 'ownership_proof', 'other']).default('other'),
+  label: z.string().trim().max(120).optional(),
+});
+export type CentreDocument = z.infer<typeof centreDocumentSchema>;

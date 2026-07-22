@@ -1,0 +1,52 @@
+import { NextResponse, type NextRequest } from 'next/server';
+import { admin } from '@/lib/supabase/admin';
+import { verifyWebhookSignature } from '@/lib/razorpay';
+import { notifyBooking } from '@/features/notifications/notify';
+import { getUserEmail } from '@/lib/email';
+
+export const runtime = 'nodejs';
+
+/**
+ * Razorpay webhook — server-authoritative payment confirmation.
+ * Verifies the signature, dedupes on event id (webhook_events), and marks the
+ * booking paid. Runs with the service-role client (bypasses RLS) precisely
+ * because it's an untrusted external caller we've cryptographically verified.
+ */
+export async function POST(req: NextRequest) {
+  const raw = await req.text();
+  const signature = req.headers.get('x-razorpay-signature') ?? '';
+
+  if (!verifyWebhookSignature(raw, signature)) {
+    return NextResponse.json({ error: 'invalid signature' }, { status: 401 });
+  }
+
+  let event: { event?: string; payload?: { payment?: { entity?: { order_id?: string; id?: string } } } };
+  try { event = JSON.parse(raw); } catch { return NextResponse.json({ error: 'bad json' }, { status: 400 }); }
+
+  // idempotency: signature digest is a stable per-delivery id
+  const eventId = signature;
+  const { error: dupeErr } = await admin.from('webhook_events').insert({ id: eventId, provider: 'razorpay' });
+  if (dupeErr) return NextResponse.json({ ok: true, deduped: true }); // already processed
+
+  if (event.event === 'payment.captured' || event.event === 'order.paid') {
+    const orderId = event.payload?.payment?.entity?.order_id;
+    const paymentId = event.payload?.payment?.entity?.id;
+    if (orderId) {
+      // Guard on status so the confirmation notification fires exactly once,
+      // whether the webhook or the checkout-confirm action wins the race.
+      const { data: updated } = await admin
+        .from('bookings')
+        .update({ payment: 'paid', status: 'confirmed', razorpay_payment_id: paymentId ?? null })
+        .eq('razorpay_order_id', orderId)
+        .neq('status', 'confirmed')
+        .select('user_id');
+      const first = updated?.[0];
+      if (first) {
+        const email = await getUserEmail(first.user_id);
+        await notifyBooking(first.user_id, 'confirmed', { email });
+      }
+    }
+  }
+
+  return NextResponse.json({ ok: true });
+}
