@@ -32,7 +32,15 @@ export async function sendEmail({ to, subject, html, template }: SendArgs): Prom
       headers: { 'content-type': 'application/json', authorization: `Bearer ${RESEND_API_KEY}` },
       body: JSON.stringify({ from: EMAIL_FROM, to, subject, html }),
     });
+
+    console.log("Sending email to:", to);
+    console.log("Subject:", subject);
+    console.log("Resend status:", res.status);
+
     if (!res.ok) {
+      const errorText = await res.text();
+      console.log("Resend API Error:", errorText);
+
       await logEmail(to, template, 'failed', null, (await res.text()).slice(0, 300));
       return false;
     }
