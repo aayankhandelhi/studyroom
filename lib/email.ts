@@ -12,7 +12,7 @@ console.log("Email configured:", emailConfigured);
 
 /** Email only actually sends when a Resend key is present. Otherwise we log the
  * message as 'queued' so the product works in dev and nothing is lost. */
-export const emailConfigured = Boolean(RESEND_API_KEY);
+// export const emailConfigured = Boolean(RESEND_API_KEY);
 
 interface SendArgs { to: string; subject: string; html: string; template: string }
 
