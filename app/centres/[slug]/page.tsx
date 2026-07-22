@@ -21,8 +21,23 @@ import { isSaved } from '@/features/saved/services/saved.service';
 import type { Json } from '@/types/database.types';
 
 /** Public URL for a listing-images Storage object. */
-const galleryUrl = (path: string) =>
-  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listing-images/${path}`;
+// const galleryUrl = (path: string) =>
+//   `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listing-images/${path}`;
+
+
+/** Returns either an external image URL or a Supabase Storage URL. */
+const galleryUrl = (path: string) => {
+  if (!path) return '';
+
+  // External image (e.g. Picsum, Cloudinary, etc.)
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+
+  // Supabase Storage image
+  return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/listing-images/${path}`;
+};
+
 
 interface PageProps {
   params: Promise<{ slug: string }>;
