@@ -17,6 +17,11 @@ export async function GET(req: NextRequest) {
   const { error } = await db.auth.exchangeCodeForSession(code);
   if (error) return NextResponse.redirect(`${origin}/login?error=auth`);
 
+  // New code
+  if (next === '/auth/update-password') {
+    return NextResponse.redirect(`${origin}/auth/update-password`);
+  }
+
   // Send users who haven't finished onboarding to choose a role.
   const { data: { user } } = await db.auth.getUser();
   if (user) {
