@@ -74,7 +74,8 @@ export async function requestPasswordReset(raw: unknown): Promise<Result<{ ok: t
 
   return action(emailOnlySchema, raw, async (input) => {
     const db = await createClient();
-    await db.auth.resetPasswordForEmail(input.email, { redirectTo: `${await siteUrl()}/auth/update-password` });
+    //await db.auth.resetPasswordForEmail(input.email, { redirectTo: `${await siteUrl()}/auth/update-password` });
+    await db.auth.resetPasswordForEmail(input.email, { redirectTo: `${await siteUrl()}/auth/callback?next=/auth/update-password` });
     return { ok: true as const };
   });
 }
